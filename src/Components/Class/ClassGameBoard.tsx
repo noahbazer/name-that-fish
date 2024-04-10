@@ -1,37 +1,89 @@
-import { Component } from "react";
-import "./styles/game-board.css";
-import { Images } from "../../assets/Images";
+import React, { Component } from 'react';
+import { Images } from '../../assets/Images';
+import { GameBoardProps } from '../../types';
 
-const initialFishes = [
+interface Fish {
+  name: string;
+  url: string;
+}
+
+const initialFishes: Fish[] = [
   {
-    name: "trout",
+    name: 'trout',
     url: Images.trout,
   },
   {
-    name: "salmon",
+    name: 'salmon',
     url: Images.salmon,
   },
   {
-    name: "tuna",
+    name: 'tuna',
     url: Images.tuna,
   },
   {
-    name: "shark",
+    name: 'shark',
     url: Images.shark,
   },
 ];
 
-export class ClassGameBoard extends Component {
+interface State {
+  input: string;
+  fishIndex: number;
+}
+
+export class ClassGameBoard extends Component<GameBoardProps, State> {
+  constructor(props: GameBoardProps) {
+    super(props);
+    this.state = {
+      input: '',
+      fishIndex: 0,
+    };
+  }
+
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ input: event.target.value });
+  };
+
+  handleNextFish = () => {
+    this.setState({ fishIndex: this.state.fishIndex + 1, input: '' });
+  };
+
+  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const nextFishToName = initialFishes[this.state.fishIndex];
+
+    this.state.input === nextFishToName.name
+      ? this.props.incrementCorrectCount()
+      : this.props.incrementIncorrectCount();
+
+    this.props.removeFish(nextFishToName.name);
+    this.props.incrementTotalCount();
+    this.handleNextFish();
+  };
+
   render() {
-    const nextFishToName = initialFishes[0];
+    const nextFishToName = initialFishes[this.state.fishIndex];
     return (
       <div id="game-board">
         <div id="fish-container">
-          <img src={nextFishToName.url} alt={nextFishToName.name} />
+          <img
+            src={nextFishToName.url}
+            alt={nextFishToName.name}
+          />
         </div>
-        <form id="fish-guess-form">
-          <label htmlFor="fish-guess">What kind of fish is this?</label>
-          <input type="text" name="fish-guess" />
+        <form
+          id="fish-guess-form"
+          onSubmit={this.handleSubmit}
+        >
+          <label htmlFor="fish-guess">
+            What kind of fish is .this? (see what I did there?)
+          </label>
+          <input
+            type="text"
+            name="fish-guess"
+            value={this.state.input}
+            onChange={this.handleChange}
+          />
           <input type="submit" />
         </form>
       </div>

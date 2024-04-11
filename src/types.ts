@@ -1,8 +1,7 @@
 export interface GameBoardProps {
     incrementCorrectCount: () => void;
     incrementIncorrectCount: () => void;
-    incrementTotalCount: () => void;
-    removeFish: (name: string) => void;
+    currentFishData: Fish;
 }
 
 export interface ScoreProps {
@@ -14,4 +13,9 @@ export interface ScoreProps {
 export interface FinalScoreProps {
     correctCount: number;
     totalCount: number;
+}
+
+export interface Fish {
+    name: string;
+    url: string;
 }

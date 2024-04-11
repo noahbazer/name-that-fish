@@ -60,7 +60,6 @@ export class ClassApp extends React.Component<void, State> {
             <ClassGameBoard
               incrementCorrectCount={this.incrementCorrectCount}
               incrementIncorrectCount={this.incrementIncorrectCount}
-              incrementTotalCount={this.incrementTotalCount}
               removeFish={this.removeFishName}
             />
           </>

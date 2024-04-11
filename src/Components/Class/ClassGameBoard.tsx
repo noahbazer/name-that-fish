@@ -57,7 +57,6 @@ export class ClassGameBoard extends Component<GameBoardProps, State> {
       : this.props.incrementIncorrectCount();
 
     this.props.removeFish(nextFishToName.name);
-    this.props.incrementTotalCount();
     this.handleNextFish();
   };
 
@@ -76,7 +75,7 @@ export class ClassGameBoard extends Component<GameBoardProps, State> {
           onSubmit={this.handleSubmit}
         >
           <label htmlFor="fish-guess">
-            What kind of fish is .this? (see what I did there?)
+            What kind of fish is .this? (see what I did there?) f
           </label>
           <input
             type="text"

@@ -55,8 +55,6 @@ export class ClassGameBoard extends Component<GameBoardProps, State> {
     this.state.input === nextFishToName.name
       ? this.props.incrementCorrectCount()
       : this.props.incrementIncorrectCount();
-
-    this.props.removeFish(nextFishToName.name);
     this.handleNextFish();
   };
 

@@ -2,15 +2,12 @@ import React from 'react';
 import { ClassGameBoard } from './ClassGameBoard';
 import { ClassScoreBoard } from './ClassScoreBoard';
 import { ClassFinalScore } from './ClassFinalScore';
+import { fishData } from '../../data/data';
 
 interface State {
   correctCount: number;
   incorrectCount: number;
-  totalCount: number;
-  fishNames: string[];
 }
-
-//! Here's a drinking game: take a shot every time you see the word "this" in this project. I'll be starting after I submit this project ;)
 
 export class ClassApp extends React.Component<void, State> {
   constructor(props: void) {
@@ -18,8 +15,6 @@ export class ClassApp extends React.Component<void, State> {
     this.state = {
       correctCount: 0,
       incorrectCount: 0,
-      totalCount: 0,
-      fishNames: ['trout', 'salmon', 'tuna', 'shark'],
     };
   }
 
@@ -35,22 +30,16 @@ export class ClassApp extends React.Component<void, State> {
     }));
   };
 
-  incrementTotalCount = () => {
-    this.setState((prevState) => ({ totalCount: prevState.totalCount + 1 }));
-  };
-
-  removeFishName = (name: string) => {
-    this.setState((prevState) => ({
-      fishNames: prevState.fishNames.filter((fishName) => fishName !== name),
-    }));
-  };
-
   render() {
-    const { correctCount, incorrectCount, totalCount, fishNames } = this.state;
+    const { correctCount, incorrectCount } = this.state;
+    const totalCount = correctCount + incorrectCount;
+
+    const fishNames = fishData.map((fish) => fish.name).splice(totalCount);
+    const currentFishIndex = totalCount;
 
     return (
       <>
-        {fishNames.length > 0 ? (
+        {totalCount < fishData.length ? (
           <>
             <ClassScoreBoard
               correctCount={correctCount}
@@ -60,7 +49,7 @@ export class ClassApp extends React.Component<void, State> {
             <ClassGameBoard
               incrementCorrectCount={this.incrementCorrectCount}
               incrementIncorrectCount={this.incrementIncorrectCount}
-              removeFish={this.removeFishName}
+              currentFishData={fishData[currentFishIndex]}
             />
           </>
         ) : (

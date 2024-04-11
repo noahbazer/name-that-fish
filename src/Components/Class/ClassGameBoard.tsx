@@ -46,7 +46,7 @@ export class ClassGameBoard extends Component<GameBoardProps, State> {
           onSubmit={this.handleSubmit}
         >
           <label htmlFor="fish-guess">
-            What kind of fish is .this? (see what I did there?) f
+            What kind of fish is .this? (see what I did there?)
           </label>
           <input
             type="text"

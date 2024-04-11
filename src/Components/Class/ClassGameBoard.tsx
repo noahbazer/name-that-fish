@@ -1,30 +1,5 @@
 import React, { Component } from 'react';
-import { Images } from '../../assets/Images';
 import { GameBoardProps } from '../../types';
-
-interface Fish {
-  name: string;
-  url: string;
-}
-
-const initialFishes: Fish[] = [
-  {
-    name: 'trout',
-    url: Images.trout,
-  },
-  {
-    name: 'salmon',
-    url: Images.salmon,
-  },
-  {
-    name: 'tuna',
-    url: Images.tuna,
-  },
-  {
-    name: 'shark',
-    url: Images.shark,
-  },
-];
 
 interface State {
   input: string;
@@ -50,22 +25,20 @@ export class ClassGameBoard extends Component<GameBoardProps, State> {
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const nextFishToName = initialFishes[this.state.fishIndex];
 
-    this.state.input === nextFishToName.name
+    this.state.input === this.props.currentFishData.name
       ? this.props.incrementCorrectCount()
       : this.props.incrementIncorrectCount();
     this.handleNextFish();
   };
 
   render() {
-    const nextFishToName = initialFishes[this.state.fishIndex];
     return (
       <div id="game-board">
         <div id="fish-container">
           <img
-            src={nextFishToName.url}
-            alt={nextFishToName.name}
+            src={this.props.currentFishData.url}
+            alt={this.props.currentFishData.name}
           />
         </div>
         <form

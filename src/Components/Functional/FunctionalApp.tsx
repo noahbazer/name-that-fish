@@ -12,12 +12,14 @@ export function FunctionalApp() {
   const fishNames = fishData.map((fish) => fish.name).splice(totalCount);
   const currentFishIndex = totalCount;
 
+  const isGameOver = totalCount >= fishData.length;
+
   const incrementCorrectCount = () => setCorrectCount(correctCount + 1);
   const incrementIncorrectCount = () => setIncorrectCount(incorrectCount + 1);
 
   return (
     <>
-      {totalCount < fishData.length ? (
+      {!isGameOver && (
         <>
           <FunctionalScoreBoard
             correctCount={correctCount}
@@ -30,7 +32,8 @@ export function FunctionalApp() {
             currentFishData={fishData[currentFishIndex]}
           />
         </>
-      ) : (
+      )}
+      {isGameOver && (
         <FunctionalFinalScore
           correctCount={correctCount}
           totalCount={fishData.length}
